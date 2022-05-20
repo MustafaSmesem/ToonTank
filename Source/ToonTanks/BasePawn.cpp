@@ -15,7 +15,7 @@ ABasePawn::ABasePawn()
 void ABasePawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	UE_LOG(LogTemp, Error, TEXT("Error from start"));
 }
 
 // Called every frame
