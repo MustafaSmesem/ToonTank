@@ -22,7 +22,7 @@ void ABasePawn::BeginPlay()
 void ABasePawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	UE_LOG(LogTemp, Warning, TEXT("Tick tock"));
 }
 
 // Called to bind functionality to input
