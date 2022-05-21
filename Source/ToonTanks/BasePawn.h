@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/CapsuleComponent.h"
 #include "GameFramework/Pawn.h"
 #include "BasePawn.generated.h"
 
@@ -22,8 +21,14 @@ protected:
 
 
 private:
-	UPROPERTY(EditAnywhere)
-	UCapsuleComponent* CapsuleComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
+	class UCapsuleComponent* CapsuleComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
+	UStaticMeshComponent* BaseComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
+	UStaticMeshComponent* TurretComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
+	USceneComponent* ProjectileSpawnPoint;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
