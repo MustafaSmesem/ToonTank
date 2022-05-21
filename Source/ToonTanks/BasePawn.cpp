@@ -37,10 +37,3 @@ void ABasePawn::Tick(float DeltaTime)
 	// UE_LOG(LogTemp, Warning, TEXT("Tick tock: %s"), *GetActorNameOrLabel());
 }
 
-// Called to bind functionality to input
-void ABasePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
