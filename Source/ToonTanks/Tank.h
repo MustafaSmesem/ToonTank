@@ -25,7 +25,7 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
 	class UCameraComponent* Camera;
-
+	
 	UPROPERTY(EditAnywhere, Category="Movment")
 	float MovementSpeed = 100.f;
 	UPROPERTY(EditAnywhere, Category="Movment")
@@ -35,6 +35,8 @@ private:
 	
 	void Move(float Scale);
 	void Turn(float Scale);
+	void Zoom();
+	void ZoomOut();
 
 	bool CameraState = true;
 	UFUNCTION(BlueprintCallable, meta=(AllowPrivateAccess))

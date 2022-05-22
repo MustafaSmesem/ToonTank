@@ -21,13 +21,15 @@ ABasePawn::ABasePawn()
 	
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
 	ProjectileSpawnPoint->SetupAttachment(TurretComponent);
+	AimPoint = CreateDefaultSubobject<USceneComponent>("Aim Point");
+	AimPoint->SetupAttachment(TurretComponent);
 }
 
 // Called when the game starts or when spawned
 void ABasePawn::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Error, TEXT("Error from start"));
+	// UE_LOG(LogTemp, Error, TEXT("Error from start"));
 }
 
 // Called every frame
@@ -35,13 +37,20 @@ void ABasePawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	// UE_LOG(LogTemp, Warning, TEXT("Tick tock: %s"), *GetActorNameOrLabel());
+	DrawDebugPoint(GetWorld(), AimPoint->GetComponentLocation(), 5, FColor::Red);
+
 }
 
 void ABasePawn::RotateTurret(FVector LookAtTarget)
 {
-	FVector ToTarget = LookAtTarget - TurretComponent->GetComponentLocation();
-	FRotator LookAtRotation = FRotator::ZeroRotator;
-	LookAtRotation.Yaw = ToTarget.Rotation().Yaw;
-
+	const FVector ToTarget = LookAtTarget - TurretComponent->GetComponentLocation();
+	const FRotator LookAtRotation = FRotator(0.f, ToTarget.Rotation().Yaw, 0.f);
 	TurretComponent->SetWorldRotation(LookAtRotation);
 }
+
+void ABasePawn::Fire()
+{
+	DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(),
+		12, 16, FColor::Cyan, false, 1);
+}
+

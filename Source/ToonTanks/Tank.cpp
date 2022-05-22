@@ -45,8 +45,11 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ATank::Move);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATank::Turn);
+	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ATank::Fire);
+	PlayerInputComponent->BindAction(TEXT("Zoom"), IE_Pressed, this, &ATank::Zoom);
+	PlayerInputComponent->BindAction(TEXT("Zoom"), IE_Released, this, &ATank::ZoomOut);
+	PlayerInputComponent->BindAction(TEXT("CamToggle"), IE_Pressed, this, &ATank::ToggleCamera);
 }
-
 
 void ATank::Move(const float Scale)
 {
@@ -76,4 +79,16 @@ void ATank::ToggleCamera()
 	CameraState = !CameraState;
 }
 
+void ATank::Zoom()
+{
+	if (!CameraState) ToggleCamera();
+	SpringArm->TargetArmLength = -100;
+	SpringArm->AddLocalRotation(FQuat(FRotator(30, 0, 0)));
+}
+
+void ATank::ZoomOut()
+{
+	SpringArm->TargetArmLength = 600;
+	SpringArm->AddLocalRotation(FQuat(FRotator(-30, 0, 0)));
+}
 
