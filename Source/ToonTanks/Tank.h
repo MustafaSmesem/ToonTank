@@ -35,6 +35,10 @@ private:
 	
 	void Move(float Scale);
 	void Turn(float Scale);
+
+	bool CameraState = true;
+	UFUNCTION(BlueprintCallable, meta=(AllowPrivateAccess))
+	void ToggleCamera();
 	
 public:
 	// Called every frame

@@ -62,3 +62,18 @@ void ATank::Turn(const float Scale)
 	AddActorLocalRotation(DeltaRotation, true);
 }
 
+void ATank::ToggleCamera()
+{
+	if (CameraState)
+	{
+		SpringArm->TargetArmLength = 1500;
+		SpringArm->AddLocalRotation(FQuat(FRotator(-60, 0, 0)));
+	} else
+	{
+		SpringArm->TargetArmLength = 600;
+		SpringArm->AddLocalRotation(FQuat(FRotator(60, 0, 0)));
+	}
+	CameraState = !CameraState;
+}
+
+
