@@ -37,3 +37,11 @@ void ABasePawn::Tick(float DeltaTime)
 	// UE_LOG(LogTemp, Warning, TEXT("Tick tock: %s"), *GetActorNameOrLabel());
 }
 
+void ABasePawn::RotateTurret(FVector LookAtTarget)
+{
+	FVector ToTarget = LookAtTarget - TurretComponent->GetComponentLocation();
+	FRotator LookAtRotation = FRotator::ZeroRotator;
+	LookAtRotation.Yaw = ToTarget.Rotation().Yaw;
+
+	TurretComponent->SetWorldRotation(LookAtRotation);
+}
