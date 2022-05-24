@@ -54,8 +54,9 @@ void ABasePawn::Fire()
 	// DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(),
 	// 	12, 16, FColor::Cyan, false, 1);
 
-	GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
 		ProjectileSpawnPoint->GetComponentRotation());
+	Projectile->SetOwner(this);
 }
 
 void ABasePawn::RotateTankTurret(float Scale)
