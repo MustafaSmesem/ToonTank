@@ -3,6 +3,7 @@
 
 #include "BasePawn.h"
 
+#include "Projectile.h"
 #include "Components/CapsuleComponent.h"
 
 // Sets default values
@@ -21,8 +22,8 @@ ABasePawn::ABasePawn()
 	
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
 	ProjectileSpawnPoint->SetupAttachment(TurretComponent);
-	AimPoint = CreateDefaultSubobject<USceneComponent>("Aim Point");
-	AimPoint->SetupAttachment(TurretComponent);
+	// AimPoint = CreateDefaultSubobject<USceneComponent>("Aim Point");
+	// AimPoint->SetupAttachment(TurretComponent);
 }
 
 // Called when the game starts or when spawned
@@ -37,7 +38,7 @@ void ABasePawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	// UE_LOG(LogTemp, Warning, TEXT("Tick tock: %s"), *GetActorNameOrLabel());
-	DrawDebugPoint(GetWorld(), AimPoint->GetComponentLocation(), 5, FColor::Red);
+	// DrawDebugPoint(GetWorld(), AimPoint->GetComponentLocation(), 5, FColor::Red);
 
 }
 
@@ -50,7 +51,14 @@ void ABasePawn::RotateTurret(FVector LookAtTarget)
 
 void ABasePawn::Fire()
 {
-	DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(),
-		12, 16, FColor::Cyan, false, 1);
+	// DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(),
+	// 	12, 16, FColor::Cyan, false, 1);
+
+	GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
+		ProjectileSpawnPoint->GetComponentRotation());
 }
 
+void ABasePawn::RotateTankTurret(float Scale)
+{
+	TurretComponent->AddLocalRotation(FRotator(0.f, Scale, 0.f));
+}

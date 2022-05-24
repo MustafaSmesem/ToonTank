@@ -29,15 +29,15 @@ void ATank::BeginPlay()
 void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (PlayerControllerRef)
-	{
-		FHitResult HitResult;
-		PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
-		// DrawDebugSphere(GetWorld(), HitResult.ImpactPoint,
-		// 	10, 16, FColor::Red,
-		// 	false, -1.f);
-		RotateTurret(HitResult.ImpactPoint);
-	}
+	// if (PlayerControllerRef)
+	// {
+	// 	FHitResult HitResult;
+	// 	PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+	// 	// DrawDebugSphere(GetWorld(), HitResult.ImpactPoint,
+	// 	// 	10, 16, FColor::Red,
+	// 	// 	false, -1.f);
+	// 	RotateTurret(HitResult.ImpactPoint);
+	// }
 }
 
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -45,6 +45,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ATank::Move);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATank::Turn);
+	PlayerInputComponent->BindAxis(TEXT("RotateTurret"), this, &ATank::RotateTankTurret);
 	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ATank::Fire);
 	PlayerInputComponent->BindAction(TEXT("Zoom"), IE_Pressed, this, &ATank::Zoom);
 	PlayerInputComponent->BindAction(TEXT("Zoom"), IE_Released, this, &ATank::ZoomOut);

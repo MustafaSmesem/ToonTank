@@ -19,6 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	void RotateTurret(FVector LookAtTarget);
+	void RotateTankTurret(float Scale);
 	void Fire();
 
 private:
@@ -30,10 +31,11 @@ private:
 	UStaticMeshComponent* TurretComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
 	USceneComponent* ProjectileSpawnPoint;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
-	class USceneComponent* AimPoint;
+	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
+	// USceneComponent* AimPoint;
 
-
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	TSubclassOf<class AProjectile> ProjectileClass;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
