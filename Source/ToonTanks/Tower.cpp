@@ -16,6 +16,14 @@ void ATower::BeginPlay()
 		&ATower::CheckFireCondition, FireRate, true);
 }
 
+void ATower::HandleDestruction()
+{
+	Super::HandleDestruction();
+	Destroy();
+	UE_LOG(LogTemp, Error, TEXT("Tower Destroyed"));
+}
+
+
 // Called every frame
 void ATower::Tick(float DeltaTime)
 {

@@ -26,6 +26,12 @@ ABasePawn::ABasePawn()
 	// AimPoint->SetupAttachment(TurretComponent);
 }
 
+void ABasePawn::HandleDestruction()
+{
+	//todo add sounds / effects
+}
+
+
 // Called when the game starts or when spawned
 void ABasePawn::BeginPlay()
 {
@@ -62,4 +68,8 @@ void ABasePawn::Fire()
 void ABasePawn::RotateTankTurret(float Scale)
 {
 	TurretComponent->AddLocalRotation(FRotator(0.f, Scale, 0.f));
+}
+void ABasePawn::UpTankTurret(float Scale)
+{
+	TurretComponent->AddLocalRotation(FRotator(Scale, 0.f, 0.f));
 }

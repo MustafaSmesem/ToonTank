@@ -26,6 +26,7 @@ private:
 	UPROPERTY(VisibleAnywhere, Category="Health")
 	float Health = 0.f;
 
+	class AMainGameModeBase* ToonTankGameMode;
 	UFUNCTION()
 	void DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* Type, AController* Instigator, AActor* DamageCauser);
 public:	
