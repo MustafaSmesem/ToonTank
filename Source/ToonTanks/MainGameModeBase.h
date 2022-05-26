@@ -23,5 +23,8 @@ private:
 	class ATank* Tank;
 	class AToonTankPlayerController* TankPlayerController;
 
+	UPROPERTY(EditAnywhere, Category="Game Setup")
+	float GameStartDelay = 3.f;
+	
 	void HandleGameStart();
 };

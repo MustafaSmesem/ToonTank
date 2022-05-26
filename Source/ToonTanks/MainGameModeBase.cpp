@@ -13,13 +13,12 @@ void AMainGameModeBase::ActorDied(AActor* DeadActor) const
 	if (DeadActor == Tank)
 	{
 		Tank->HandleDestruction();
-		if(TankPlayerController)
+		if (TankPlayerController)
 		{
 			TankPlayerController->SetPlayerEnabledState(false);
 		}
-		
 	}
-	else if(ATower* DestroyedTower = Cast<ATower>(DeadActor))
+	else if (ATower* DestroyedTower = Cast<ATower>(DeadActor))
 	{
 		DestroyedTower->HandleDestruction();
 	}
@@ -28,6 +27,7 @@ void AMainGameModeBase::ActorDied(AActor* DeadActor) const
 void AMainGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
+	HandleGameStart();
 }
 
 void AMainGameModeBase::HandleGameStart()
@@ -38,5 +38,10 @@ void AMainGameModeBase::HandleGameStart()
 	if (TankPlayerController)
 	{
 		TankPlayerController->SetPlayerEnabledState(false);
+		FTimerHandle PlayerEnableTimerHandle;
+		FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(TankPlayerController,
+			&AToonTankPlayerController::SetPlayerEnabledState, true);
+		GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle,
+		                                PlayerEnableTimerDelegate, GameStartDelay, false);
 	}
 }
