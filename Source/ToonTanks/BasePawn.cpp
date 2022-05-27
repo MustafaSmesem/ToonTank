@@ -22,6 +22,7 @@ ABasePawn::ABasePawn()
 	
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
 	ProjectileSpawnPoint->SetupAttachment(TurretComponent);
+	
 	// AimPoint = CreateDefaultSubobject<USceneComponent>("Aim Point");
 	// AimPoint->SetupAttachment(TurretComponent);
 }

@@ -35,15 +35,15 @@ void ATank::HandleDestruction()
 void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	// if (TankPlayerController)
-	// {
-	// 	FHitResult HitResult;
-	// 	TankPlayerController->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
-	// 	// DrawDebugSphere(GetWorld(), HitResult.ImpactPoint,
-	// 	// 	10, 16, FColor::Red,
-	// 	// 	false, -1.f);
-	// 	RotateTurret(HitResult.ImpactPoint);
-	// }
+	if (TankPlayerController)
+	{
+		FHitResult HitResult;
+		TankPlayerController->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+		// DrawDebugSphere(GetWorld(), HitResult.ImpactPoint,
+		// 	10, 16, FColor::Red,
+		// 	false, -1.f);
+		RotateTurret(HitResult.ImpactPoint);
+	}
 }
 
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -51,7 +51,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ATank::Move);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATank::Turn);
-	PlayerInputComponent->BindAxis(TEXT("RotateTurret"), this, &ATank::RotateTankTurret);
+	// PlayerInputComponent->BindAxis(TEXT("RotateTurret"), this, &ATank::RotateTankTurret);
 	// PlayerInputComponent->BindAxis(TEXT("UpTurret"), this, &ATank::UpTankTurret);
 	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ATank::Fire);
 	PlayerInputComponent->BindAction(TEXT("Zoom"), IE_Pressed, this, &ATank::Zoom);

@@ -33,6 +33,7 @@ private:
 	UStaticMeshComponent* TurretComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
 	USceneComponent* ProjectileSpawnPoint;
+	
 	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
 	// USceneComponent* AimPoint;
 
