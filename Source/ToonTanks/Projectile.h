@@ -22,10 +22,16 @@ protected:
 private:
 	UPROPERTY(EditDefaultsOnly, Category="Compat")
 	UStaticMeshComponent* ProjectileMesh;
+	
+	UPROPERTY(EditAnywhere, Category="Compat")
+	UParticleSystem* HitParticle;	
+	UPROPERTY(VisibleAnywhere, Category="Compat")
+	UParticleSystemComponent* TrailParticleComponent;
 
 	UPROPERTY(VisibleAnywhere, Category="Compat")
 	class UProjectileMovementComponent* ProjectileMovementComponent;
-
+	
+	
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 		FVector NormalImpulse, const FHitResult& Hit);

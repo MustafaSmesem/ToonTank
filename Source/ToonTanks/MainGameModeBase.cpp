@@ -8,7 +8,7 @@
 #include "Tower.h"
 #include "Kismet/GameplayStatics.h"
 
-void AMainGameModeBase::ActorDied(AActor* DeadActor) const
+void AMainGameModeBase::ActorDied(AActor* DeadActor)
 {
 	if (DeadActor == Tank)
 	{
@@ -17,10 +17,13 @@ void AMainGameModeBase::ActorDied(AActor* DeadActor) const
 		{
 			TankPlayerController->SetPlayerEnabledState(false);
 		}
+		GameOver(false);
 	}
 	else if (ATower* DestroyedTower = Cast<ATower>(DeadActor))
 	{
 		DestroyedTower->HandleDestruction();
+		--TargetTowers;
+		if (TargetTowers <= 0) GameOver(true);
 	}
 }
 
@@ -32,6 +35,7 @@ void AMainGameModeBase::BeginPlay()
 
 void AMainGameModeBase::HandleGameStart()
 {
+	TargetTowers = GetTowersCount();
 	Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
 	TankPlayerController = Cast<AToonTankPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 	StartGame();
@@ -39,9 +43,14 @@ void AMainGameModeBase::HandleGameStart()
 	{
 		TankPlayerController->SetPlayerEnabledState(false);
 		FTimerHandle PlayerEnableTimerHandle;
-		FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(TankPlayerController,
-			&AToonTankPlayerController::SetPlayerEnabledState, true);
-		GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle,
-		                                PlayerEnableTimerDelegate, GameStartDelay, false);
+		const FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(TankPlayerController, &AToonTankPlayerController::SetPlayerEnabledState, true);
+		GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, GameStartDelay, false);
 	}
+}
+
+int32 AMainGameModeBase::GetTowersCount() const
+{
+	TArray<AActor*> Towers;
+	UGameplayStatics::GetAllActorsOfClass(this, ATower::StaticClass(), Towers);
+	return Towers.Num();
 }
