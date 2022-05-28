@@ -28,6 +28,12 @@ private:
 	UPROPERTY(VisibleAnywhere, Category="Compat")
 	UParticleSystemComponent* TrailParticleComponent;
 
+	UPROPERTY(EditDefaultsOnly, Category="Compat")
+	USoundBase* LaunchSound;
+
+	UPROPERTY(EditDefaultsOnly, Category="Compat")
+	USoundBase* HitSound;
+
 	UPROPERTY(VisibleAnywhere, Category="Compat")
 	class UProjectileMovementComponent* ProjectileMovementComponent;
 	

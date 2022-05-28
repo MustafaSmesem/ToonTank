@@ -30,9 +30,10 @@ ABasePawn::ABasePawn()
 
 void ABasePawn::HandleDestruction()
 {
-	//todo add sounds / effects
 	if (DeathParticle)
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DeathParticle, GetActorLocation(), GetActorRotation());
+	if (DeathSound)
+		UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
 }
 
 

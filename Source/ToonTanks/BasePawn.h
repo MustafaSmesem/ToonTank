@@ -42,6 +42,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	UParticleSystem* DeathParticle;
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	USoundBase* DeathSound;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
