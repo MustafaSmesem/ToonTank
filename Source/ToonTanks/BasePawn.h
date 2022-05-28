@@ -34,9 +34,9 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
 	USceneComponent* ProjectileSpawnPoint;
 	
-	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
-	// USceneComponent* AimPoint;
-
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	TSubclassOf<UCameraShakeBase> DestroyCameraShakeClass;
+	
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	TSubclassOf<class AProjectile> ProjectileClass;
 

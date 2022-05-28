@@ -20,23 +20,25 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY(EditDefaultsOnly, Category="Compat")
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	UStaticMeshComponent* ProjectileMesh;
 	
-	UPROPERTY(EditAnywhere, Category="Compat")
+	UPROPERTY(EditAnywhere, Category="Combat")
 	UParticleSystem* HitParticle;	
-	UPROPERTY(VisibleAnywhere, Category="Compat")
+	UPROPERTY(VisibleAnywhere, Category="Combat")
 	UParticleSystemComponent* TrailParticleComponent;
 
-	UPROPERTY(EditDefaultsOnly, Category="Compat")
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	USoundBase* LaunchSound;
 
-	UPROPERTY(EditDefaultsOnly, Category="Compat")
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	USoundBase* HitSound;
 
-	UPROPERTY(VisibleAnywhere, Category="Compat")
+	UPROPERTY(VisibleAnywhere, Category="Combat")
 	class UProjectileMovementComponent* ProjectileMovementComponent;
-	
+
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	TSubclassOf<UCameraShakeBase> HitCameraShakeClass;
 	
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
