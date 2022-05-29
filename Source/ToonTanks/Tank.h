@@ -35,6 +35,8 @@ private:
 
 	APlayerController* TankPlayerController;
 
+	bool bAlive = true;
+	
 	void Move(float Scale);
 	void Turn(float Scale);
 	void Zoom();
@@ -53,4 +55,9 @@ public:
 
 	virtual void HandleDestruction() override;
 	APlayerController* GetPlayerController() const { return TankPlayerController; }
+	
+	bool IsAlive() const
+	{
+		return bAlive;
+	}
 };

@@ -23,9 +23,6 @@ ABasePawn::ABasePawn()
 	
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
 	ProjectileSpawnPoint->SetupAttachment(TurretComponent);
-	
-	// AimPoint = CreateDefaultSubobject<USceneComponent>("Aim Point");
-	// AimPoint->SetupAttachment(TurretComponent);
 }
 
 void ABasePawn::HandleDestruction()
@@ -67,8 +64,7 @@ void ABasePawn::Fire()
 	// DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(),
 	// 	12, 16, FColor::Cyan, false, 1);
 
-	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
-		ProjectileSpawnPoint->GetComponentRotation());
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(), ProjectileSpawnPoint->GetComponentRotation());
 	Projectile->SetOwner(this);
 }
 
@@ -76,6 +72,7 @@ void ABasePawn::RotateTankTurret(float Scale)
 {
 	TurretComponent->AddLocalRotation(FRotator(0.f, Scale, 0.f));
 }
+
 void ABasePawn::UpTankTurret(float Scale)
 {
 	TurretComponent->AddLocalRotation(FRotator(Scale, 0.f, 0.f));

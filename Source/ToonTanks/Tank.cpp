@@ -28,6 +28,7 @@ void ATank::BeginPlay()
 void ATank::HandleDestruction()
 {
 	Super::HandleDestruction();
+	bAlive = false;
 	SetActorHiddenInGame(true);
 	SetActorTickEnabled(false);
 }
@@ -78,11 +79,11 @@ void ATank::ToggleCamera()
 	if (CameraState)
 	{
 		SpringArm->TargetArmLength = 1500;
-		SpringArm->AddLocalRotation(FQuat(FRotator(-60, 0, 0)));
+		SpringArm->AddLocalRotation(FQuat(FRotator(-40, 0, 0)));
 	} else
 	{
-		SpringArm->TargetArmLength = 600;
-		SpringArm->AddLocalRotation(FQuat(FRotator(60, 0, 0)));
+		SpringArm->TargetArmLength = 700;
+		SpringArm->AddLocalRotation(FQuat(FRotator(40, 0, 0)));
 	}
 	CameraState = !CameraState;
 }
@@ -91,12 +92,12 @@ void ATank::Zoom()
 {
 	if (!CameraState) ToggleCamera();
 	SpringArm->TargetArmLength = -100;
-	SpringArm->AddLocalRotation(FQuat(FRotator(30, 0, 0)));
+	SpringArm->AddLocalRotation(FQuat(FRotator(50, 0, 0)));
 }
 
 void ATank::ZoomOut()
 {
-	SpringArm->TargetArmLength = 600;
-	SpringArm->AddLocalRotation(FQuat(FRotator(-30, 0, 0)));
+	SpringArm->TargetArmLength = 900;
+	SpringArm->AddLocalRotation(FQuat(FRotator(-50, 0, 0)));
 }
 

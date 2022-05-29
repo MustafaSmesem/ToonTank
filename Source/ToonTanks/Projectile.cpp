@@ -44,10 +44,10 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
                         FVector NormalImpulse, const FHitResult& Hit)
 {
 	UE_LOG(LogTemp, Error, TEXT("Hitted: %s"), *OtherActor->GetName());
-	const auto Owner = GetOwner();
+	AActor* Owner = GetOwner();
 	if (!Owner) return;
-	const auto OwnerInstigator = Owner->GetInstigatorController();
-	const auto DamageType = UDamageType::StaticClass();
+	AController* OwnerInstigator = Owner->GetInstigatorController();
+	UClass* DamageType = UDamageType::StaticClass();
 	if (OtherActor && OtherActor != this && OtherActor != Owner)
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, 10, OwnerInstigator, Owner, DamageType);
