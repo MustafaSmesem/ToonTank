@@ -16,13 +16,15 @@ class TOONTANKS_API ATank : public ABasePawn
 public:
 	// Sets default values for this pawn's properties
 	ATank();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
 	class USpringArmComponent* SpringArm;
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess))
 	class UCameraComponent* Camera;
 
@@ -31,19 +33,31 @@ private:
 	UPROPERTY(EditAnywhere, Category="Movment")
 	float RotationSpeed = 20.f;
 
-	APlayerController* PlayerControllerRef;
+	APlayerController* TankPlayerController;
+
+	bool bAlive = true;
 	
 	void Move(float Scale);
 	void Turn(float Scale);
+	void Zoom();
+	void ZoomOut();
 
 	bool CameraState = true;
 	UFUNCTION(BlueprintCallable, meta=(AllowPrivateAccess))
 	void ToggleCamera();
-	
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+
+	virtual void HandleDestruction() override;
+	APlayerController* GetPlayerController() const { return TankPlayerController; }
+	
+	bool IsAlive() const
+	{
+		return bAlive;
+	}
 };

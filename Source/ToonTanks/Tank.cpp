@@ -22,17 +22,24 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	PlayerControllerRef = Cast<APlayerController>(GetController());
+	TankPlayerController = Cast<APlayerController>(GetController());
 }
 
+void ATank::HandleDestruction()
+{
+	Super::HandleDestruction();
+	bAlive = false;
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
+}
 // Called every frame
 void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (PlayerControllerRef)
+	if (TankPlayerController)
 	{
 		FHitResult HitResult;
-		PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+		TankPlayerController->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
 		// DrawDebugSphere(GetWorld(), HitResult.ImpactPoint,
 		// 	10, 16, FColor::Red,
 		// 	false, -1.f);
@@ -45,8 +52,13 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ATank::Move);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATank::Turn);
+	// PlayerInputComponent->BindAxis(TEXT("RotateTurret"), this, &ATank::RotateTankTurret);
+	// PlayerInputComponent->BindAxis(TEXT("UpTurret"), this, &ATank::UpTankTurret);
+	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ATank::Fire);
+	PlayerInputComponent->BindAction(TEXT("Zoom"), IE_Pressed, this, &ATank::Zoom);
+	PlayerInputComponent->BindAction(TEXT("Zoom"), IE_Released, this, &ATank::ZoomOut);
+	PlayerInputComponent->BindAction(TEXT("CamToggle"), IE_Pressed, this, &ATank::ToggleCamera);
 }
-
 
 void ATank::Move(const float Scale)
 {
@@ -67,13 +79,25 @@ void ATank::ToggleCamera()
 	if (CameraState)
 	{
 		SpringArm->TargetArmLength = 1500;
-		SpringArm->AddLocalRotation(FQuat(FRotator(-60, 0, 0)));
+		SpringArm->AddLocalRotation(FQuat(FRotator(-40, 0, 0)));
 	} else
 	{
-		SpringArm->TargetArmLength = 600;
-		SpringArm->AddLocalRotation(FQuat(FRotator(60, 0, 0)));
+		SpringArm->TargetArmLength = 700;
+		SpringArm->AddLocalRotation(FQuat(FRotator(40, 0, 0)));
 	}
 	CameraState = !CameraState;
 }
 
+void ATank::Zoom()
+{
+	if (!CameraState) ToggleCamera();
+	SpringArm->TargetArmLength = -100;
+	SpringArm->AddLocalRotation(FQuat(FRotator(50, 0, 0)));
+}
+
+void ATank::ZoomOut()
+{
+	SpringArm->TargetArmLength = 900;
+	SpringArm->AddLocalRotation(FQuat(FRotator(-50, 0, 0)));
+}
 
